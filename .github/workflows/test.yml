@@ -1,0 +1,47 @@
+name: test build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Build
+        uses: docker/build-push-action@v5
+        with:
+          load: true
+          tags: |
+            test-build
+
+      - name: Check version
+        id: this_version
+        uses: fopina/docker-postfix-relay/.github/actions/docker-apk-version@587173caaa0614a23130856565202d30870c62fc
+        with:
+          image: test-build
+          package: openssh-server
+
+      - name: Get latest version
+        id: latest_version
+        uses: fopina/docker-postfix-relay/.github/actions/docker-apk-version@587173caaa0614a23130856565202d30870c62fc
+        with:
+          image: ghcr.io/fopina/ssh-bastion:latest
+          package: openssh-server
+
+      - uses: actions/github-script@v3
+        if: steps.this_version.outputs.version != steps.latest_version.outputs.version
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '👋 openssh-server version updated from ${{ steps.latest_version.outputs.version }} to ${{ steps.this_version.outputs.version }}'
+            })
