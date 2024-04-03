@@ -1,4 +1,4 @@
-name: publish to dockerhub
+name: publish
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: publish to dockerhub
+    name: publish
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -64,5 +64,5 @@ jobs:
       - name: Check for any new
         run: |
             echo "### Published" >> $GITHUB_STEP_SUMMARY
-            echo "`fopina/ssh-bastion:${{ steps.this_version.outputs.version }}-${{ github.run_number }}`" >> $GITHUB_STEP_SUMMARY
-            echo "`ghcr.io/fopina/ssh-bastion:${{ steps.this_version.outputs.version }}-${{ github.run_number }}`" >> $GITHUB_STEP_SUMMARY
+            echo '`fopina/ssh-bastion:${{ steps.this_version.outputs.version }}-${{ github.run_number }}`' >> $GITHUB_STEP_SUMMARY
+            echo '`ghcr.io/fopina/ssh-bastion:${{ steps.this_version.outputs.version }}-${{ github.run_number }}`' >> $GITHUB_STEP_SUMMARY

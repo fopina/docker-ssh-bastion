@@ -6,7 +6,8 @@
 
 if ! id ${SSH_USER} > /dev/null; then
 	echo "Creating ${SSH_USER} with random password"
-  adduser ${SSH_USER}
+  adduser -D -s /bin/bash ${SSH_USER}
+  addgroup ${SSH_USER} wheel
 	RND=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 20)
 	echo ${SSH_USER}:$RND | chpasswd
 	echo "Temporary password for ${SSH_USER} :: $RND"
