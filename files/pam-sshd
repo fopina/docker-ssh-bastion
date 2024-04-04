@@ -1,0 +1,8 @@
+#%PAM-1.0
+
+auth      include   base-auth
+account   include   base-account
+password  include   base-password
+session   include   base-session
+# all options in https://github.com/google/google-authenticator-libpam?tab=readme-ov-file#module-options
+auth            required        pam_google_authenticator.so       echo_verification_code grace_period=3600 nullok
