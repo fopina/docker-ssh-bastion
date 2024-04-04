@@ -15,19 +15,19 @@ jobs:
         uses: fopina/docker-postfix-relay/.github/actions/docker-apk-version@587173caaa0614a23130856565202d30870c62fc
         with:
           image: ghcr.io/fopina/ssh-bastion:latest
-          package: openssh-server
+          package: openssh-server-pam
 
       - name: Get latest version
         id: latest_version
         uses: fopina/docker-postfix-relay/.github/actions/docker-apk-version@587173caaa0614a23130856565202d30870c62fc
         with:
           image: alpine:latest
-          package: openssh-server
+          package: openssh-server-pam
           install: true
 
       - name: Check for any new
         if: steps.used_version.outputs.version != steps.latest_version.outputs.version
         run: |
             echo "### New Version" >> $GITHUB_STEP_SUMMARY
-            echo openssh-server version updated from ${{ steps.used_version.outputs.version }} to ${{ steps.latest_version.outputs.version }} >> $GITHUB_STEP_SUMMARY
+            echo openssh-server-pam version updated from ${{ steps.used_version.outputs.version }} to ${{ steps.latest_version.outputs.version }} >> $GITHUB_STEP_SUMMARY
             exit 1

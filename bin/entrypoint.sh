@@ -14,4 +14,4 @@ if ! id ${SSH_USER} > /dev/null; then
 	echo
 fi
 
-exec /sbin/tini -- /usr/sbin/sshd -D -f /data/etc/ssh/sshd_config
+exec /sbin/tini -- /usr/sbin/sshd.pam -D -f /data/etc/ssh/sshd_config

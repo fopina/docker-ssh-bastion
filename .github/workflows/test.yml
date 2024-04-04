@@ -25,14 +25,14 @@ jobs:
         uses: fopina/docker-postfix-relay/.github/actions/docker-apk-version@587173caaa0614a23130856565202d30870c62fc
         with:
           image: test-build
-          package: openssh-server
+          package: openssh-server-pam
 
       - name: Get latest version
         id: latest_version
         uses: fopina/docker-postfix-relay/.github/actions/docker-apk-version@587173caaa0614a23130856565202d30870c62fc
         with:
           image: ghcr.io/fopina/ssh-bastion:latest
-          package: openssh-server
+          package: openssh-server-pam
 
       - uses: actions/github-script@v3
         if: steps.this_version.outputs.version != steps.latest_version.outputs.version
@@ -43,5 +43,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋 openssh-server version updated from ${{ steps.latest_version.outputs.version }} to ${{ steps.this_version.outputs.version }}'
+              body: '👋 openssh-server-pam version updated from ${{ steps.latest_version.outputs.version }} to ${{ steps.this_version.outputs.version }}'
             })

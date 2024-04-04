@@ -46,7 +46,7 @@ jobs:
         uses: fopina/docker-postfix-relay/.github/actions/docker-apk-version@587173caaa0614a23130856565202d30870c62fc
         with:
           image: test-build
-          package: openssh-server
+          package: openssh-server-pam
 
       - name: Build and push
         uses: docker/build-push-action@v5
