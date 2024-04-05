@@ -14,6 +14,9 @@ COPY files/sudoers /etc/sudoers.d/ssh-bastion
 COPY files/pam-sshd /data/etc/pam.d/sshd
 COPY files/sshd_config /data/etc/ssh/sshd_config
 COPY files/custom-entrypoint.sh /data/custom-entrypoint.sh
+# github runners seem to mess up permissions when cloning?
+RUN chmod 0600 /etc/sudoers.d/ssh-bastion /data/etc/pam.d/sshd /data/etc/ssh/sshd_config
+RUN chmod 0755 /data/custom-entrypoint.sh
 RUN mv /etc/shadow /data/etc/shadow && ln -s /data/etc/shadow /etc/shadow
 RUN mv /etc/passwd /data/etc/passwd && ln -s /data/etc/passwd /etc/passwd
 RUN mv /etc/group /data/etc/group && ln -s /data/etc/group /etc/group
