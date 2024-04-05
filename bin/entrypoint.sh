@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 /usr/bin/ssh-keygen -A -f /data
 
 # check if sudo user exists and create it if not
@@ -13,5 +15,7 @@ if ! id ${SSH_USER} > /dev/null; then
 	echo "Temporary password for ${SSH_USER} :: $RND"
 	echo
 fi
+
+/data/custom-entrypoint.sh
 
 exec /sbin/tini -- /usr/sbin/sshd.pam -D -f /data/etc/ssh/sshd_config
