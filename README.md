@@ -31,12 +31,12 @@ e6f93a820b48:~$
 | Name | Default | Description |
 | ---- | ------- | ----------- |
 | SSH_USER | user | Username to be created.<br>It is added to `wheel` group and can sudo without password.<br>Random password assign and printed to logs, if the user did not already exist |
-| DEFAULT_SSHD_ARGS | `-D -f /data/etc/ssh/sshd_config` | Default arguments passed to `sshd.pam` before any container command arguments are appended |
+| DEFAULT_SSHD_ARGS | `-D -e -f /data/etc/ssh/sshd_config` | Default arguments passed to `sshd.pam` before any container command arguments are appended |
 
 You can append extra `sshd` args via the container command, for example:
 
 ```sh
-docker run ... ghcr.io/fopina/ssh-bastion:latest -e
+docker run ... ghcr.io/fopina/ssh-bastion:latest -o LogLevel=VERBOSE
 ```
 
 To fully replace the defaults, clear `DEFAULT_SSHD_ARGS` and provide your own command args:

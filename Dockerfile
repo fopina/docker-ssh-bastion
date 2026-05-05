@@ -26,7 +26,7 @@ RUN mv /home /data && ln -s /data/home /home
 COPY bin /usr/bin
 
 ENV SSH_USER=user \
-    DEFAULT_SSHD_ARGS="-D -f /data/etc/ssh/sshd_config"
+    DEFAULT_SSHD_ARGS="-D -e -f /data/etc/ssh/sshd_config"
 EXPOSE 22
 VOLUME [ "/data" ]
 
