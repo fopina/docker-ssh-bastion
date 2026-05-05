@@ -18,4 +18,7 @@ fi
 
 /data/custom-entrypoint.sh
 
-exec /sbin/tini -- /usr/sbin/sshd.pam -D -f /data/etc/ssh/sshd_config
+: "${DEFAULT_SSHD_ARGS:=-D -f /data/etc/ssh/sshd_config}"
+
+# shellcheck disable=SC2086
+exec /sbin/tini -- /usr/sbin/sshd.pam ${DEFAULT_SSHD_ARGS} "$@"
